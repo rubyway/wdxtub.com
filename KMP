@@ -1,0 +1,38 @@
+#KMP http://blog.csdn.net/v_july_v/article/details/7041827
+# -*- coding: utf-8 -*-
+def getnext(p):
+    length = len(p)
+    nextlist = [-1]*length
+    k, j = -1, 0
+    while j< length- 1:
+        if k== -1 or p[j]== p[k]:#p[k]前缀  p[j]后缀
+            k += 1
+            j += 1
+            if p[j] != p[k]:
+                nextlist[j] = k
+            else:
+                nextlist[j] = nextlist[k]
+        else:
+            k = nextlist[k]
+    return nextlist
+#print getnext('abcdabd')
+
+def kmpsearch(s, p):
+    nextlist = getnext(p)
+    i, j = 0, 0
+    lengths = len(s)
+    lengthp = len(p)
+    while i< lengths and j < lengthp:
+        if j== -1 or s[i] == p[j]:
+            i += 1
+            j += 1
+        else:
+            j = nextlist[j]
+    if j == lengthp:
+        return i- j
+    else:
+        return False
+        
+s = 'abacababc'
+p = 'abab' 
+print kmpsearch(s, p)   
