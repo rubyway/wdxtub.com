@@ -1,0 +1,35 @@
+"""Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+For example:
+
+Given aacecaaa, return aaacecaaa.
+
+Given abcd, return dcbabcd."""
+#http://www.thinksaas.cn/group/topic/395866/
+# -*- coding: utf-8 -*-
+def getnext(p):
+    length = len(p)
+    nextlist = []
+    nextlist.append(-1)#[-1]*length
+    k, j = -1, 0
+    while j< length:
+        if k== -1 or p[j]== p[k]:#p[k]前缀  p[j]后缀
+            k += 1
+            j += 1
+            nextlist.append(k)
+        else:
+            k = nextlist[k]
+    return nextlist
+#print getnext('abcdabd')
+def shortestPalindrome(s):
+    length = len(s)
+    if length <= 1:
+        return s
+    res = s[::-1]
+    news = s + '#' + res
+    lengthnew = len(news)
+    nextlist = getnext(news)
+    maxlen = nextlist[-1]
+    result = res[0:length- maxlen] +s
+    return result
+print shortestPalindrome('aaba')   
