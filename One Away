@@ -1,0 +1,38 @@
+#http://wdxtub.com/interview/14520595475576.html
+"""One Away
+There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away
+
+EXAMPLE
+
+pale, ple -> true
+pales, pale -> true
+pale, bale -> true
+pale, bake -> false
+Solution
+
+Complexity
+
+时间复杂度 O(n)，空间复杂度 O(1)"""
+
+def oneway(a, b):
+    lengtha, lengthb = len(a), len(b)
+    if abs(lengtha- lengthb) > 1:
+        return False
+    if abs(lengtha- lengthb) == 0:#replace
+        cntdiff = 0
+        for i in lengtha:
+            if a[i] != b[i]:
+                cntdiff += 1
+            else:
+                cntdiff += 0
+        if cntdiff == 1:
+            return True
+        else:
+            return False
+    elif abs(lengtha- lengthb) == 1:#insert and remove
+        templong, tempshort = (a, b) if lengtha > lengthb else (b, a)
+        lengthlong, lengthshort = len(templong), len(tempshort)
+        for i in xrange(lengthlong):
+            if templong[0:i] + templong[i+1:] == tempshort:
+                return True
+        return False
