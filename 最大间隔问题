@@ -1,0 +1,21 @@
+#给定数组 a，求下标对 i, j 满足 a[i] <= a[j]，并且 j - i 最大
+#http://wdxtub.com/interview/14520595473642.html
+#http://mars914.iteye.com/blog/1667259
+#solution 1
+def maxinter(aList):
+    length = len(aList)
+    premin, sufmax = [], []
+    for i in xrange(length- 1):
+        premin.append(min(aList[:i+ 1]))
+    #premin.append(min(aList))
+    #[5, 2, 2, 1, 1, 0, 0]
+    """best = 0
+    for j in xrange(length- 1, best, -1):
+        while j> best and aList[j]>= premin[j- best- 1]:
+            best += 1
+    return best"""
+    for j in xrange(1, length):
+        sufmax.append(max(aList[j:]))
+    return max(sufmax)- min(premin)
+print maxinter([5,2,4,1,8,0,12])
+#solution 2
