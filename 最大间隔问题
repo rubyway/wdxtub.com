@@ -16,6 +16,12 @@ def maxinter(aList):
     return best"""
     for j in xrange(1, length):
         sufmax.append(max(aList[j:]))
-    return max(sufmax)- min(premin)
+    #return max(sufmax)- min(premin)
+    best = 0
+    for k in xrange(length- 2):
+        temp = sufmax[k]- premin[k]
+        if best < temp:
+            best = temp
+    return best
 print maxinter([5,2,4,1,8,0,12])
 #solution 2
