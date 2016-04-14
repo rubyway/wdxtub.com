@@ -25,3 +25,28 @@ def maxinter(aList):
     return best
 print maxinter([5,2,4,1,8,0,12])
 #solution 2
+"""
+令b[j] = a[j + 1] - a[j]，
+那么a[j] - a[i]=(a[i+1]-a[i])+(a[i+2]-a[i+1])+...+(a[j]-a[i-1])
+                   = b[i] +b[i+1]+ ...+ b[j - 1]，
+即将问题转化成求一个数组子序列的最大值。这个过程的算法是有O(n)的算法的。
+"""
+def maxinter(aList):
+    length = len(aList)
+    diffList = []
+    for i in xrange(1, length):
+        diffList.append(aList[i]- aList[i- 1])
+    return consecmax(diffList)
+def consecmax(aList):
+    length = len(aList)
+    tempsum = float("-inf")
+    tempmax = float("-inf")
+    for i in xrange(length):
+        if tempsum + aList[i] < aList[i]:
+            tempsum = aList[i]
+        else:
+            tempsum += aList[i]
+        if tempmax < tempsum:
+            tempmax = tempsum
+    return tempmax
+print maxinter([5,2,4,1,8,0,12])
